@@ -8,7 +8,7 @@ import com.azure.messaging.servicebus.administration.ServiceBusAdministrationCli
 public class Subscription {
     public static void main(String[] args) {
         String topicName = "topic-das1";
-        String subscriptionName = "subscription-walter";
+        String subscriptionName = "subscription-felipe";
         String fqdns = "sb-das12025-test-brazilsouth.servicebus.windows.net";
 
         DefaultAzureCredential credential = 
