@@ -17,7 +17,7 @@ import br.univille.ativchat.service.BrokerMensagemService;
 import br.univille.ativchat.view.Form;
 
 public class BrokerMensagemServiceImpl implements BrokerMensagemService {
-    private final String topicName = "topic-chat";
+    private final String topicName = "topic-das1"; // Nome do tópico
     private final String serviceBus = "https://sb-das12025-test-brazilsouth.servicebus.windows.net";
     private final String subscription = "subscription-felipe";
 

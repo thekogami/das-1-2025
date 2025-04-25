@@ -9,7 +9,7 @@ import com.azure.messaging.servicebus.ServiceBusSenderClient;
 
 public class Publisher {
     public static void main(String[] args) {
-        String topicName = "topic-chat";
+        String topicName = "topic-das1";
         
         DefaultAzureCredential credential = new DefaultAzureCredentialBuilder()
                 .build();
