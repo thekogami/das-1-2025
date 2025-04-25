@@ -75,22 +75,28 @@ public class Form extends JFrame {
         jpnSul.add(btnEnviar);
 
         // Adiciona ação ao botão "Enviar"
-        btnEnviar.addActionListener(e -> {
-            String mensagem = txtNovaMsg.getText();
-            if (!mensagem.isEmpty()) {
-                // Envia a mensagem para o Azure Service Bus
-                new Thread(() -> {
-                    try {
-                        Producer.enviarMensagem(new Mensagem(nome, mensagem));
-                        txtChat.append("Você: " + mensagem + "\n");
-                        txtNovaMsg.setText("");
-                    } catch (Exception ex) {
-                        txtChat.append("Erro ao enviar mensagem: " + ex.getMessage() + "\n");
-                    }
-                }).start();
-            }
-        });
+        btnEnviar.addActionListener(e -> enviarMensagem());
+
+        // Adiciona ação ao pressionar Enter no campo de texto
+        txtNovaMsg.addActionListener(e -> enviarMensagem());
 
         getContentPane().add(jpnSul, "South");
     }
+
+    private void enviarMensagem() {
+        String mensagem = txtNovaMsg.getText();
+        if (!mensagem.isEmpty()) {
+            // Envia a mensagem para o Azure Service Bus
+            new Thread(() -> {
+                try {
+                    Producer.enviarMensagem(new Mensagem(nome, mensagem));
+                    txtChat.append("Você: " + mensagem + "\n");
+                    txtNovaMsg.setText("");
+                } catch (Exception ex) {
+                    txtChat.append("Erro ao enviar mensagem: " + ex.getMessage() + "\n");
+                }
+            }).start();
+        }
+    }
+
 }

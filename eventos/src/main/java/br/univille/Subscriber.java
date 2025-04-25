@@ -9,13 +9,13 @@ import com.azure.messaging.servicebus.models.ServiceBusReceiveMode;
 
 public class Subscriber {
     public static void main(String[] args) {
-        String topicName = "topic-das1";
-        String subscriptionName = "subscription-walter";
+        String topicName = "topic-das1"; // Certifique-se de que o nome do tópico é consistente
+        String subscriptionName = "subscription-felipe";
         String fqdns = "sb-das12025-test-brazilsouth.servicebus.windows.net";
 
-        DefaultAzureCredential credential = new DefaultAzureCredentialBuilder()
-                .build();
+        DefaultAzureCredential credential = new DefaultAzureCredentialBuilder().build();
 
+        // Configura o cliente do Service Bus
         ServiceBusProcessorClient processorClient = new ServiceBusClientBuilder()
                 .fullyQualifiedNamespace(fqdns)
                 .credential(credential)
@@ -25,19 +25,28 @@ public class Subscriber {
                 .subscriptionName(subscriptionName)
                 .receiveMode(ServiceBusReceiveMode.PEEK_LOCK)
                 .processMessage(context -> {
-                    System.out.println("Mensagem recebida: " + context.getMessage().getBody().toString());
-                    context.complete();
+                    // Processa a mensagem recebida
+                    String mensagem = context.getMessage().getBody().toString();
+                    System.out.println("Mensagem recebida: " + mensagem);
+
+                    // Confirma o processamento da mensagem
+                    try {
+                        context.complete();
+                    } catch (Exception e) {
+                        System.out.println("Erro ao confirmar mensagem: " + e.getMessage());
+                    }
                 })
                 .processError(context -> {
-                    System.out.println("Erro: " + context.getException().getMessage());
+                    // Trata erros
+                    System.out.println("Erro ao processar mensagem: " + context.getException().getMessage());
                 })
                 .buildProcessorClient();
 
         processorClient.start();
         System.out.println("Aguardando mensagens...");
+
         try {
-            Thread.sleep(5000);
-            System.in.read(); // colocar sleep aqui
+            System.in.read(); // Aguarda entrada do usuário para encerrar
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

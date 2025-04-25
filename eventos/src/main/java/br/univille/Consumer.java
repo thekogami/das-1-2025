@@ -24,7 +24,9 @@ public class Consumer {
                 .receiveMode(ServiceBusReceiveMode.RECEIVE_AND_DELETE)
                 .processMessage(context -> {
                     String mensagem = context.getMessage().getBody().toString();
-                    form.setMensagem("Recebido: " + mensagem);
+                    if (!mensagem.contains("nome=" + form.getNome())) { // Ignora mensagens do próprio usuário
+                        form.setMensagem("Recebido: " + mensagem);
+                    }
                 })
                 .processError(context -> {
                     form.setMensagem("Erro ao receber mensagem: " + context.getException().getMessage());
@@ -32,5 +34,10 @@ public class Consumer {
                 .buildProcessorClient();
 
         processorClient.start();
+    }
+
+    public static void main(String[] args) {
+        Form form = new Form();
+        iniciarRecebimento(form);
     }
 }
