@@ -9,7 +9,7 @@ import com.azure.messaging.servicebus.models.ServiceBusReceiveMode;
 
 public class Subscriber {
     public static void main(String[] args) {
-        String topicName = "topic-das1"; // Certifique-se de que o nome do tópico é consistente
+        String topicName = "topic-das1";
         String subscriptionName = "subscription-felipe";
         String fqdns = "sb-das12025-test-brazilsouth.servicebus.windows.net";
 

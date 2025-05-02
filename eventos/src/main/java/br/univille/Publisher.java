@@ -22,7 +22,7 @@ public class Publisher {
                 .topicName(topicName)
                 .buildClient();
 
-        senderClient.sendMessage(new ServiceBusMessage("Ola mundo!"));
+        senderClient.sendMessage(new ServiceBusMessage("Ola do felipe!"));
         senderClient.close();
         System.out.println("Enviado");
 

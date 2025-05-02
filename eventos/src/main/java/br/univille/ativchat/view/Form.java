@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import br.univille.Producer;
 import br.univille.Consumer;
 import br.univille.ativchat.model.Mensagem;
+import br.univille.ativchat.controller.Controller;
+import br.univille.ativchat.service.BrokerMensagemService;
 
 public class Form extends JFrame {
     private JPanel jpnSul;
@@ -19,6 +21,7 @@ public class Form extends JFrame {
     private JTextField txtNovaMsg;
     private JButton btnEnviar;
     private String nome;
+    private Controller controller;
 
     public String getNome() {
         return this.nome;
@@ -41,8 +44,8 @@ public class Form extends JFrame {
         criaJpnCentro();
         criaJpnSul();
 
-        // Inicia o consumidor para receber mensagens
-        new Thread(() -> Consumer.iniciarRecebimento(this)).start();
+        controller = new Controller(this); // Inicializa o Controller
+        controller.iniciarBuscaDeMensagens(); // Inicia a busca de mensagens
 
         setVisible(true);
     }
@@ -86,9 +89,9 @@ public class Form extends JFrame {
     private void enviarMensagem() {
         String mensagem = txtNovaMsg.getText();
         if (!mensagem.isEmpty()) {
-            // Envia a mensagem para o Azure Service Bus
             new Thread(() -> {
                 try {
+                    // Envia a mensagem real usando o Producer
                     Producer.enviarMensagem(new Mensagem(nome, mensagem));
                     txtChat.append("Você: " + mensagem + "\n");
                     txtNovaMsg.setText("");
