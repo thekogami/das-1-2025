@@ -1,5 +1,3 @@
----
-
 # Design e Arquitetura de Software
 
 ## Aula 26/02/2025
@@ -94,5 +92,3 @@ O custo de decisões rápidas e mal planejadas no desenvolvimento.
 - Idealmente, cada camada deve se comunicar apenas com a adjacente.  
   - Exemplo: Apresentação → Comercial → Persistência → Banco de Dados.  
 - Com o crescimento do software, é comum que essa separação se deteriore, prejudicando o sistema.
-
----
