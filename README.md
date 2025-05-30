@@ -92,3 +92,12 @@ O custo de decisões rápidas e mal planejadas no desenvolvimento.
 - Idealmente, cada camada deve se comunicar apenas com a adjacente.  
   - Exemplo: Apresentação → Comercial → Persistência → Banco de Dados.  
 - Com o crescimento do software, é comum que essa separação se deteriore, prejudicando o sistema.
+
+
+## Resumo Aula 28/05/2025
+
+
+
+## Resumo Aula 28/05/2025
+
+
