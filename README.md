@@ -80,9 +80,81 @@ Os padrões arquiteturais ajudam a organizar sistemas de software em um nível m
 
 ---
 
-## Aula 23/04/2025
-**Débito Técnico**  
-O custo de decisões rápidas e mal planejadas no desenvolvimento.
+# Aula – 23/04
+
+## Bola de Lama
+
+Refere-se a sistemas desenvolvidos sem uma arquitetura definida. Esse modelo, embora comum, tende a ter um alto custo de manutenção e apresenta sérias dificuldades para evoluir ou escalar com o tempo.
+
+## Débito Técnico
+
+São melhorias ou ajustes que deveriam ter sido feitos, mas foram deixados de lado por motivos como prazos apertados, mudanças de escopo ou decisões conscientes de priorização.
+
+## Arquitetura Cliente/Servidor
+
+- Um modelo tradicional onde o cliente consome dados e serviços fornecidos por um servidor.
+- Exemplo: aplicações desktop conectadas diretamente a um banco de dados — facilita o controle de concorrência e a troca de informações.
+- Também se aplica ao modelo navegador/servidor web.
+- Estrutura em três camadas (apresentação, negócio, dados) é comum nesse tipo de arquitetura.
+
+## Arquiteturas Monolíticas
+
+- Toda a lógica do sistema está em um único projeto ou repositório.
+- Pode ser organizada em camadas, pipelines ou adotar o estilo microkernel.
+
+## Arquiteturas Distribuídas
+
+- O sistema é composto por partes menores que interagem entre si.
+- Tipos comuns:
+  - Arquitetura baseada em serviços
+  - Arquitetura orientada a eventos
+  - Arquitetura baseada em espaços (tuplespaces)
+  - Arquitetura orientada a serviços (SOA)
+  - Microsserviços
+
+## Falácias de Sistemas Distribuídos
+
+- A rede é confiável
+- A latência é zero
+- A largura de banda é infinita
+- A topologia da rede nunca muda
+
+## Desafios em Sistemas Distribuídos
+
+- Logs distribuídos: registrar eventos de diferentes serviços.
+- Transações distribuídas: manter a consistência quando múltiplos serviços estão envolvidos.
+- Manutenção e versionamento: garantir que mudanças em um serviço não afetem negativamente os demais.
+
+# Resumo de Arquiteturas
+
+## Arquitetura em Camadas
+
+- A estrutura da organização pode influenciar na forma como o software é desenhado.
+- Promove a separação de responsabilidades.
+- As camadas devem interagir apenas com suas vizinhas imediatas.
+- Com o tempo, pode se tornar difícil de manter se não for bem gerenciada.
+
+## Arquitetura Pipeline
+
+- Baseia-se em uma cadeia de programas, onde a saída de um é usada como entrada do próximo.
+- Exemplo: MapReduce
+  - `Map`: aplica transformações a todos os elementos.
+  - `Reduce`: agrega os dados transformados.
+- Utiliza padrões como:
+  - STDIN / STDOUT
+  - Programas produtores (geram dados)
+  - Filtros (por exemplo, `grep`)
+  - Transformadores (modificam o formato dos dados)
+  - Consumidores (armazenam os dados finais)
+- Aplicações práticas incluem sistemas de streaming e ferramentas como Apache Kafka.
+- Ferramentas visuais como Node-RED seguem esse modelo.
+
+## Arquitetura Microkernel
+
+- Um sistema com núcleo central e componentes que podem ser conectados conforme necessário.
+- Exemplos incluem IDEs com plugins, navegadores com extensões e sistemas Java com bibliotecas externas.
+- Segue o princípio de depender de abstrações em vez de implementações.
+- Baseia-se em contratos bem definidos para permitir a extensão da funcionalidade sem modificar o núcleo.
 
 ---
 
@@ -93,11 +165,30 @@ O custo de decisões rápidas e mal planejadas no desenvolvimento.
   - Exemplo: Apresentação → Comercial → Persistência → Banco de Dados.  
 - Com o crescimento do software, é comum que essa separação se deteriore, prejudicando o sistema.
 
+---
 
-## Resumo Aula 28/05/2025
+# Aula – 28/05
 
+## Arquitetura em Serviços
 
+- Organização do sistema em aplicações que refletem o domínio do problema.
+- Essas aplicações podem ser reutilizadas em diferentes contextos e são agrupadas com base em suas responsabilidades de negócio, não por critérios técnicos.
 
-## Resumo Aula 28/05/2025
+# Aula – 29/05
 
+## Arquitetura de Microsserviços
 
+- O sistema é composto por pequenos serviços independentes, cada um com um domínio bem definido.
+- Cada microsserviço deve lidar apenas com suas regras de negócio específicas.
+- Essa abordagem favorece o desacoplamento e facilita a composição e reutilização de lógica.
+
+### Considerações
+
+- Os microsserviços devem manter o isolamento de dados.
+- A coordenação entre as equipes é essencial para garantir a integridade do sistema.
+- A comunicação entre os microsserviços é crucial para garantir que o sistema como um todo funcione corretamente.
+
+### Vantagens
+
+- Alta escalabilidade
+- Elasticidade: o sistema pode se adaptar facilmente a variações de carga
