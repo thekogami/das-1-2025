@@ -1,0 +1,8 @@
+version: 1
+common:
+  resourcesPath: ./components/
+apps:
+  - appID: app-a
+    appDirPath: ./app-a/target/
+    appPort: 8080
+    command: ["java", "-jar", "app-a-0.0.1-SNAPSHOT.jar"]
