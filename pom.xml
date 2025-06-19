@@ -16,6 +16,7 @@
         <module>microkernel-plugin</module>
         <module>microkernel-kernel</module>-->
         <module>app-a</module>
+        <module>app-b</module>
     </modules>
 
 </project>
