@@ -1,6 +1,11 @@
 package br.univille.app_a.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import io.dapr.client.DaprClient;
+import io.dapr.client.DaprClientBuilder;
+import io.dapr.client.domain.HttpExtension;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +18,16 @@ public class HomeController {
 
     @GetMapping()
     public ResponseEntity index() {
+
+        try(DaprClient daprClient = new DaprClientBuilder().build()) {
+            
+            daprClient.invokeMethod("app-b", "/api", null, HttpExtension.GET).block();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error in Dapr Client");
+        }
+
         return ResponseEntity.ok().body("Hello from App A");
     }
 }
