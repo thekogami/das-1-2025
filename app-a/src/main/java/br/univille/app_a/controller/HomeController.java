@@ -18,6 +18,7 @@ public class HomeController {
 
     @GetMapping()
     public ResponseEntity index() {
+        System.out.println("Hello from App A");
 
         try(DaprClient daprClient = new DaprClientBuilder().build()) {
             

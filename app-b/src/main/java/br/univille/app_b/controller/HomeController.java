@@ -13,6 +13,7 @@ public class HomeController {
 
   @GetMapping()
   public ResponseEntity index() {
+    System.out.println("Hello from App B");
     return ResponseEntity.ok().body("Hello from App B");
   }
 }
