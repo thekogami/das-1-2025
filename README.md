@@ -1,6 +1,7 @@
 # Design e Arquitetura de Software
 
 ## Aula 26/02/2025
+
 **Livro: Engenharia de Software Moderna - Capítulo 7**  
 [Link para o capítulo](https://engsoftmoderna.info/cap7.html)
 
@@ -16,6 +17,7 @@ Quando falamos em arquitetura de software, estamos lidando com o planejamento de
 ---
 
 ## Aula 27/02/2025
+
 Os padrões arquiteturais ajudam a organizar sistemas de software em um nível mais alto, definindo módulos principais e suas relações. Essas relações podem, por exemplo, restringir ou permitir que um módulo utilize os serviços de outro. É comum combinar diferentes padrões arquiteturais para atender às necessidades do projeto.
 
 - **Arquitetura em Camadas**: Uma das mais tradicionais, separa responsabilidades entre front-end, back-end e banco de dados.
@@ -30,8 +32,10 @@ Os padrões arquiteturais ajudam a organizar sistemas de software em um nível m
 ---
 
 ## Aula 05/03/2025
-**Padrão vs Estilo Arquitetural**  
-- **Padrão**: Solução para problemas específicos (ex.: MVC).  
+
+**Padrão vs Estilo Arquitetural**
+
+- **Padrão**: Solução para problemas específicos (ex.: MVC).
 - **Estilo**: Organização geral do código ou projeto.
 
 - **Big Ball of Mud**: Falta de padrões arquiteturais, resultando em um sistema desorganizado.
@@ -43,6 +47,7 @@ Os padrões arquiteturais ajudam a organizar sistemas de software em um nível m
 ---
 
 ## Aula 06/03/2025
+
 **Artigo: Who Needs an Architect?**  
 [Link para o artigo](https://martinfowler.com/ieeeSoftware/whoNeedsArchitect.pdf)
 
@@ -56,24 +61,28 @@ Os padrões arquiteturais ajudam a organizar sistemas de software em um nível m
 ---
 
 ## Aula 03/04/2025
-**Filas (Queues)**  
-- Funcionam no modelo FIFO (First In, First Out).  
-- Permitem desacoplar componentes temporais da aplicação.  
-- Acumulam mensagens em caso de falhas.  
-  - **Producer**: Gera mensagens.  
+
+**Filas (Queues)**
+
+- Funcionam no modelo FIFO (First In, First Out).
+- Permitem desacoplar componentes temporais da aplicação.
+- Acumulam mensagens em caso de falhas.
+  - **Producer**: Gera mensagens.
   - **Consumer**: Consome mensagens.
 
 ---
 
 ## Aula 09/04/2025
-**Fundamentos da Arquitetura de Software - Capítulo 4**  
 
-- **Backup**: Mais barato, mas lento para restaurar.  
+**Fundamentos da Arquitetura de Software - Capítulo 4**
+
+- **Backup**: Mais barato, mas lento para restaurar.
 - **Réplica**: Recuperação rápida, porém mais cara e sujeita a desincronização.
 
 **Características da Arquitetura**:
-- **Operacionais**: Desempenho, escalabilidade, elasticidade, disponibilidade e confiabilidade.  
-- **Estruturais**: Modularidade, acoplamento controlado, código legível.  
+
+- **Operacionais**: Desempenho, escalabilidade, elasticidade, disponibilidade e confiabilidade.
+- **Estruturais**: Modularidade, acoplamento controlado, código legível.
 - **Transversais**: Restrições externas, como requisitos legais.
 
 **Trade-offs**: Decisões arquiteturais sempre envolvem compromissos. Ex.: Aumentar a segurança pode impactar o desempenho.
@@ -159,10 +168,12 @@ São melhorias ou ajustes que deveriam ter sido feitos, mas foram deixados de la
 ---
 
 ## Aula 24/04/2025
-**Estilo de Arquitetura em Camadas**  
-- **Lei de Conway**: A estrutura do software reflete a organização da empresa.  
-- Idealmente, cada camada deve se comunicar apenas com a adjacente.  
-  - Exemplo: Apresentação → Comercial → Persistência → Banco de Dados.  
+
+**Estilo de Arquitetura em Camadas**
+
+- **Lei de Conway**: A estrutura do software reflete a organização da empresa.
+- Idealmente, cada camada deve se comunicar apenas com a adjacente.
+  - Exemplo: Apresentação → Comercial → Persistência → Banco de Dados.
 - Com o crescimento do software, é comum que essa separação se deteriore, prejudicando o sistema.
 
 ---
@@ -171,24 +182,73 @@ São melhorias ou ajustes que deveriam ter sido feitos, mas foram deixados de la
 
 ## Arquitetura em Serviços
 
-- Organização do sistema em aplicações que refletem o domínio do problema.
-- Essas aplicações podem ser reutilizadas em diferentes contextos e são agrupadas com base em suas responsabilidades de negócio, não por critérios técnicos.
+- Organização em camadas: interface de usuário, serviços de domínio independentes e banco de dados compartilhado.
+- Normalmente entre 4-12 serviços por aplicação (média de 7 serviços).
+- Serviços organizados por domínio de negócio, não por critérios técnicos.
+- Flexibilidade: interface pode ser modular, banco pode ser separado por serviço.
+- Camada de API opcional para proxy, segurança e auditoria.
+
+### Características dos Serviços
+
+- Estrutura em camadas: fachada API, lógica comercial e persistência.
+- Orquestração interna: uma fachada coordena todas as operações dentro do serviço.
+- Transações ACID: garantem integridade total dos dados.
+- Isolamento de dados por meio de bibliotecas compartilhadas.
+
+### Vantagens
+
+- Arquitetura pragmática: características balanceadas (3-4 estrelas).
+- Design orientado a domínio.
+- Melhor preservação de transações ACID.
+- Modularidade sem complexidade excessiva.
+- Agilidade, testabilidade e implementabilidade altas.
+- Confiabilidade e disponibilidade boas.
+
+### Limitações
+
+- Escalabilidade e elasticidade médias devido ao tamanho maior dos serviços.
+- Mudanças podem impactar múltiplas funcionalidades, exigindo mais testes.
+- Dependência de coordenação para mudanças no banco compartilhado.
 
 # Aula – 29/05
 
 ## Arquitetura de Microsserviços
 
-- O sistema é composto por pequenos serviços independentes, cada um com um domínio bem definido.
-- Cada microsserviço deve lidar apenas com suas regras de negócio específicas.
-- Essa abordagem favorece o desacoplamento e facilita a composição e reutilização de lógica.
+- Baseada em Domain-Driven Design (DDD) e contextos delimitados.
+- Cada serviço roda em processo separado com isolamento completo de recursos.
+- Comunicação pela rede (mais lenta) com verificação de segurança.
+- Cada serviço possui seu próprio banco de dados (sem compartilhamento).
 
-### Considerações
+### Critérios para Dimensionamento
 
-- Os microsserviços devem manter o isolamento de dados.
-- A coordenação entre as equipes é essencial para garantir a integridade do sistema.
-- A comunicação entre os microsserviços é crucial para garantir que o sistema como um todo funcione corretamente.
+- **Finalidade**: função bem definida e coesa.
+- **Transações**: serviços que transacionam juntos indicam limite natural.
+- **Coreografia**: comunicação excessiva sugere necessidade de consolidação.
+
+### Características Técnicas
+
+- **Heterogênea**: cada serviço pode usar tecnologias diferentes.
+- **Interoperável**: comunicação via protocolos padronizados (REST, filas).
+- **Isolamento de dados**: cada serviço gerencia seus próprios dados.
+- **Sem mediador central**: serviços se comunicam diretamente.
+
+### Comunicação
+
+- **Síncrona**: requisição espera resposta imediata.
+- **Assíncrona**: resposta pode vir depois, sem travamento.
+- Estratégias para performance: cache, replicação e descoberta de serviços.
 
 ### Vantagens
 
-- Alta escalabilidade
-- Elasticidade: o sistema pode se adaptar facilmente a variações de carga
+- **Escalabilidade e elasticidade**: excelentes (5 estrelas).
+- **Evolução rápida**: mudanças isoladas com baixo risco.
+- **Flexibilidade tecnológica**: cada equipe escolhe sua stack.
+- **Tolerância a falhas**: serviços independentes.
+- **Foco no domínio**: cada serviço representa parte real do negócio.
+
+### Limitações
+
+- **Performance**: latência de rede e overhead de segurança.
+- **Complexidade**: requer práticas DevOps maduras.
+- **Consistência eventual**: transações BASE em vez de ACID.
+- **Coordenação**: maior necessidade de orquestração/coreografia.
